@@ -65,7 +65,7 @@ class DolibarrFullOptionView
             $html .= '<button type="submit" class="button">Appliquer</button>';
         } elseif ($type === 'url') {
             $html .= '<label class="dolibarrfulloption-field-label" for="dfo-'.self::e($key).'">Adresse HTTPS</label>';
-            $html .= '<input id="dfo-'.self::e($key).'" type="url" name="value" maxlength="500" value="'.self::e($value).'" placeholder="https://exemple.fr/image.jpg">';
+            $html .= '<input id="dfo-'.self::e($key).'" type="url" name="value" maxlength="500" value="'.self::e($value).'" placeholder="https://exemple.fr/page-ou-fichier">';
             $html .= '<button type="submit" class="button">Appliquer</button>';
         } else {
             $html .= '<label class="dolibarrfulloption-field-label" for="dfo-'.self::e($key).'">Valeur</label>';

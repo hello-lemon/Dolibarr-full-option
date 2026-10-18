@@ -4,9 +4,9 @@ Module communautaire pour Dolibarr 22, 23 et 24. Il rassemble les options avanc�
 
 ## Contenu du catalogue
 
-- 532 constantes recensées sur la page [Setup Other du wiki Dolibarr](https://wiki.dolibarr.org/index.php/Setup_Other).
-- 47 options supplémentaires sélectionnées dans le code officiel.
-- 579 fiches au total, comparées aux sources officielles 22.0.4, 23.0.4 et 24.0.1.
+- 530 fiches issues de la page [Setup Other du wiki Dolibarr](https://wiki.dolibarr.org/index.php/Setup_Other).
+- 49 fiches issues du code officiel, dont des corrections de fiches initialement extraites du wiki.
+- 579 fiches au total ; leur présence par version a été comparée aux sources officielles 22.0.4, 23.0.4 et 24.0.1.
 - Un [inventaire complémentaire](docs/audit-code.md) recense 2 612 autres constantes repérées dans le code. Le [répertoire technique](docs/inventaire-doliconstdoc.md) apporte les 3 219 clés d’une base GPL indépendante et 72 clés supplémentaires extraites du code, recoupées avec les sources 22, 23 et 24. Ces données sont des pistes d’analyse, pas des réglages automatiquement modifiables.
 
 Une constante présente dans le code peut dépendre d’un autre module ou d’un contexte particulier. Les fiches dont le format ou l’effet est incertain restent en lecture seule. Les versions autres que 22, 23 et 24 sont consultables sans écriture. Avant toute modification, lire la description et vérifier le comportement sur une instance de test.
@@ -21,7 +21,7 @@ Une modification crée ou met à jour la constante dans l’entité courante. **
 
 ## Sécurité et validation
 
-Les valeurs sont validées côté serveur. Les options sensibles ou ambiguës sont en lecture seule ; celles signalées **Attention** demandent une confirmation. Chaque écriture vérifie le jeton CSRF de Dolibarr. Les valeurs proposées pour les tailles de listes sont éditées comme des pastilles et converties au format natif de Dolibarr.
+Les 204 titres tronqués de la première extraction du wiki ont été réécrits en libellés courts. Les valeurs sont validées côté serveur. Les options sensibles ou ambiguës sont en lecture seule ; celles signalées **Attention** demandent une confirmation. Chaque écriture vérifie le jeton CSRF de Dolibarr. Les valeurs proposées pour les tailles de listes sont éditées comme des pastilles et converties au format natif de Dolibarr.
 
 Vérifications locales : `php tests/catalogue.php`, `php -l` sur les fichiers PHP et `node --check` sur les fichiers JavaScript. L’installation a également été vérifiée sur les versions 22.0.4 et 23.0.3.
 

@@ -33,16 +33,25 @@ check(!DolibarrFullOptionCatalog::editable(DolibarrFullOptionCatalog::find('MAIN
 check(DolibarrFullOptionCatalog::editable(DolibarrFullOptionCatalog::find('FCKEDITOR_ENABLE_MAIL'), 22), 'L’éditeur de courriel doit être disponible en V22.');
 check(DolibarrFullOptionCatalog::editable(DolibarrFullOptionCatalog::find('BANK_DISABLE_DIRECT_INPUT'), 24), 'Le verrou de saisie bancaire doit être modifiable.');
 check(DolibarrFullOptionCatalog::find('ADD_UNSPLASH_LOGIN_BACKGROUND')['type'] === 'url', 'Le fond de connexion attend une URL.');
+check(DolibarrFullOptionCatalog::find('MAIN_PASSWORD_FORGOTLINK')['type'] === 'url', 'Le lien de mot de passe oublié attend une URL vérifiée.');
+check(DolibarrFullOptionCatalog::find('MEMBER_EXT_URL_SUBSCRIPTION_INFO')['type'] === 'url', 'Le lien public des adhésions attend une URL vérifiée.');
+check(DolibarrFullOptionCatalog::find('API_DISABLE_LOGIN_API')['description_fr'] !== '(v14.0)', 'Le blocage des connexions API doit être expliqué.');
 foreach ($entries as $entry) {
     check(in_array($entry['group'], array_keys(DolibarrFullOptionCatalog::groups()), true), $entry['key'].' : domaine inconnu.');
     check(in_array($entry['type'], array('boolean', 'integer', 'text', 'enum', 'choices', 'url'), true), $entry['key'].' : type inconnu.');
     check(!$entry['editable'] || trim($entry['description_fr']) !== '', $entry['key'].' : description absente.');
+    check(mb_strpos($entry['title_fr'], '…') === false, $entry['key'].' : titre tronqué.');
 }
 $choices = DolibarrFullOptionCatalog::find('MAIN_PAGESIZE_CHOICES');
 check(DolibarrFullOptionSettings::validate(DolibarrFullOptionCatalog::find('ADD_UNSPLASH_LOGIN_BACKGROUND'), 'https://example.org/image.jpg') === 'https://example.org/image.jpg', 'L’URL HTTPS doit être acceptée.');
 try {
     DolibarrFullOptionSettings::validate(DolibarrFullOptionCatalog::find('ADD_UNSPLASH_LOGIN_BACKGROUND'), 'http://example.org/image.jpg');
     check(false, 'Une URL non chiffrée doit être rejetée.');
+} catch (InvalidArgumentException $e) {
+}
+try {
+    DolibarrFullOptionSettings::validate(DolibarrFullOptionCatalog::find('MAIN_PASSWORD_FORGOTLINK'), 'javascript:alert(1)');
+    check(false, 'Un lien JavaScript ne doit pas être enregistré sur la page de connexion.');
 } catch (InvalidArgumentException $e) {
 }
 check(DolibarrFullOptionCatalog::registerProviderOptions(array(array('key' => 'EXAMPLE_OPTION', 'module' => 'Exemple', 'title_fr' => 'Option exemple', 'description_fr' => 'Description en français.', 'versions' => array(22, 23, 24), 'type' => 'boolean', 'editable' => true))) === 1, 'Une option fournie par un module doit être ajoutée.');
