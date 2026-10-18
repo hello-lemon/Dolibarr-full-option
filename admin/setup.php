@@ -179,7 +179,7 @@ if ($query !== '') {
 }
 print '</form>';
 if ($tab === 'inventaire' && $query === '') {
-    print '<div class="opacitymedium dolibarrfulloption-context">Inventaire technique issu de DoliConstDoc et du code officiel : clés repérées dans cette version. Les résumés d’origine sont en anglais et n’ont pas encore été validés comme réglages éditables.</div>';
+    print '<div class="opacitymedium dolibarrfulloption-context">Inventaire technique issu de DoliConstDoc et du code officiel : clés repérées dans cette version. Ces clés se modifient depuis la page native Divers.</div>';
 }
 if ($tab === 'historique' && $query === '') {
     print '<div class="opacitymedium dolibarrfulloption-context">Constantes documentées mais absentes du code vérifié de Dolibarr '.$major.'.</div>';

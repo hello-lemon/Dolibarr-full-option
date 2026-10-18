@@ -1,6 +1,6 @@
 # Dolibarr Full Option
 
-Module communautaire pour Dolibarr 22, 23 et 24. Il rassemble les options avancées dans une page d’administration en français : onglets et tableau natifs, recherche, explication de chaque constante et commande adaptée à sa valeur (interrupteur, liste, nombre, URL ou champ texte). La version de Dolibarr est détectée automatiquement. Les options absentes du code de cette version restent consultables sous **Anciennes options**, sans commande d’écriture. L’onglet **Inventaire du code** permet de rechercher les autres clés repérées dans les sources de la version utilisée. Le résumé original anglais y reste consultable pendant la revue française ; ces clés ouvrent la page native Divers pour toute modification.
+Module communautaire pour Dolibarr 22, 23 et 24. Il rassemble les options avancées dans une page d’administration en français : onglets et tableau natifs, recherche, explication de chaque constante et commande adaptée à sa valeur (interrupteur, liste, nombre, URL ou champ texte). La version de Dolibarr est détectée automatiquement. Les options absentes du code de cette version restent consultables sous **Anciennes options**, sans commande d’écriture. L’onglet **Inventaire du code** permet de rechercher les autres clés repérées dans les sources de la version utilisée. Chaque clé y porte un résumé traduit en français, avec la version originale anglaise repliable dessous ; ces clés ouvrent la page native Divers pour toute modification.
 
 ## Contenu du catalogue
 

@@ -6,6 +6,7 @@
 class DolibarrFullOptionDiscovery
 {
     private static $entries;
+    private static $translations;
 
     public static function all()
     {
@@ -27,8 +28,24 @@ class DolibarrFullOptionDiscovery
         return self::$entries;
     }
 
+    /**
+     * Résumés traduits en français, rangés à part (data/discovery-fr.json) pour qu'une
+     * réimportation de DoliConstDoc ne les écrase pas.
+     */
+    public static function translations()
+    {
+        if (self::$translations !== null) {
+            return self::$translations;
+        }
+        $path = dirname(__DIR__).'/data/discovery-fr.json';
+        $decoded = is_readable($path) ? json_decode(file_get_contents($path), true) : array();
+        self::$translations = is_array($decoded) ? $decoded : array();
+        return self::$translations;
+    }
+
     public static function toCatalogEntry($row)
     {
+        $translations = self::translations();
         $versions = array_map('intval', array_keys($row['references']));
         $sourceVersion = $versions ? max($versions) : 24;
         $sourcePath = isset($row['references'][(string) $sourceVersion][0]) ? $row['references'][(string) $sourceVersion][0] : '';
@@ -37,7 +54,7 @@ class DolibarrFullOptionDiscovery
             'group' => 'Inventaire du code',
             'section' => $row['module'],
             'title_fr' => $row['key'],
-            'description_fr' => 'Constante repérée dans le code de Dolibarr. Son effet et ses valeurs attendues n’ont pas encore été vérifiés pour une fiche française éditable.',
+            'description_fr' => isset($translations[$row['key']]) ? (string) $translations[$row['key']] : '',
             'purpose_en' => $row['purpose_en'],
             'versions' => $versions,
             'type' => 'text',
