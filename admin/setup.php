@@ -118,7 +118,7 @@ $filtered = array();
 foreach ($entries as $entry) {
     $compatible = DolibarrFullOptionCatalog::supports($entry, $major);
     if (!$compatible) {
-        if ($entry['source'] !== 'doliconstdoc') {
+        if (!in_array($entry['source'], array('doliconstdoc', 'code-index'), true)) {
             $counts['historique']++;
         }
     } elseif (isset($tabs[$entry['group']])) {
@@ -130,7 +130,7 @@ foreach ($entries as $entry) {
         if (mb_stripos($haystack, $query) === false) {
             continue;
         }
-    } elseif ($tab === 'historique' ? ($compatible || $entry['source'] === 'doliconstdoc') : (!$compatible || !isset($tabs[$entry['group']]) || $tabs[$entry['group']] !== $tab)) {
+    } elseif ($tab === 'historique' ? ($compatible || in_array($entry['source'], array('doliconstdoc', 'code-index'), true)) : (!$compatible || !isset($tabs[$entry['group']]) || $tabs[$entry['group']] !== $tab)) {
         continue;
     }
     $filtered[] = $entry;
@@ -179,7 +179,7 @@ if ($query !== '') {
 }
 print '</form>';
 if ($tab === 'inventaire' && $query === '') {
-    print '<div class="opacitymedium dolibarrfulloption-context">Inventaire technique issu de DoliConstDoc : clés repérées dans le code de cette version. Les résumés d’origine sont en anglais et n’ont pas encore été validés comme réglages éditables.</div>';
+    print '<div class="opacitymedium dolibarrfulloption-context">Inventaire technique issu de DoliConstDoc et du code officiel : clés repérées dans cette version. Les résumés d’origine sont en anglais et n’ont pas encore été validés comme réglages éditables.</div>';
 }
 if ($tab === 'historique' && $query === '') {
     print '<div class="opacitymedium dolibarrfulloption-context">Constantes documentées mais absentes du code vérifié de Dolibarr '.$major.'.</div>';

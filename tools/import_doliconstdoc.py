@@ -12,10 +12,12 @@ VERSIONS = ("22.0.4", "23.0.4", "24.0.1")
 EXCLUDED_DIRS = {"vendor", "modulebuilder", "test", "tests", "node_modules"}
 QUOTED_KEY = re.compile(r"['\"]([A-Z][A-Z0-9_]{4,})['\"]")
 PROPERTY_KEY = re.compile(r"(?:->global->|->conf->)([A-Z][A-Z0-9_]{4,})")
+ACCESSOR_KEY = re.compile(r"\bgetDolGlobal(?:String|Int|Bool|Boolean|Float|Array)\s*\(\s*['\"]([A-Z][A-Z0-9_]+)['\"]")
 
 
-def source_references(source_root: Path, keys: set[str]) -> dict[str, dict[str, list[str]]]:
+def source_references(source_root: Path, keys: set[str]) -> tuple[dict[str, dict[str, list[str]]], dict[str, dict[str, list[str]]]]:
     references: dict[str, dict[str, list[str]]] = defaultdict(dict)
+    accessor_references: dict[str, dict[str, list[str]]] = defaultdict(dict)
     for version in VERSIONS:
         root = source_root / f"dolibarr-{version}" / "htdocs"
         if not root.is_dir():
@@ -37,7 +39,11 @@ def source_references(source_root: Path, keys: set[str]) -> dict[str, dict[str, 
                     paths = references[key].setdefault(major, [])
                     if relative not in paths and len(paths) < 3:
                         paths.append(relative)
-    return references
+                for key in set(ACCESSOR_KEY.findall(line)):
+                    paths = accessor_references[key].setdefault(major, [])
+                    if relative not in paths and len(paths) < 3:
+                        paths.append(relative)
+    return references, accessor_references
 
 
 def main() -> None:
@@ -56,7 +62,7 @@ def main() -> None:
         "SELECT name, type, module, purpose, hidden_setting, confidence FROM constants ORDER BY name"
     ).fetchall()
     keys = {row["name"] for row in rows}
-    references = source_references(args.dolibarr_sources, keys)
+    references, accessor_references = source_references(args.dolibarr_sources, keys)
     entries = []
     for row in rows:
         key = row["name"]
@@ -68,11 +74,23 @@ def main() -> None:
             "hidden": bool(row["hidden_setting"]),
             "confidence": row["confidence"] or "low",
             "references": references.get(key, {}),
+            "origin": "doliconstdoc",
         }
         entries.append(entry)
+    for key in sorted(accessor_references.keys() - keys):
+        entries.append({
+            "key": key,
+            "module": "core",
+            "purpose_en": "",
+            "type_hint": "unknown",
+            "hidden": False,
+            "confidence": "à vérifier",
+            "references": accessor_references[key],
+            "origin": "code",
+        })
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(entries, ensure_ascii=False, separators=(",", ":")) + "\n")
-    print(f"{len(entries)} constantes importées ; {sum(bool(e['references']) for e in entries)} repérées dans V22–V24.")
+    print(f"{len(rows)} clés DoliConstDoc et {len(entries) - len(rows)} autres clés du code ; {sum(bool(e['references']) for e in entries)} repérées dans V22–V24.")
 
 
 if __name__ == "__main__":

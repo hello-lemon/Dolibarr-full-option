@@ -21,7 +21,8 @@ function check($condition, $message)
 
 $entries = DolibarrFullOptionCatalog::all();
 $discovery = DolibarrFullOptionDiscovery::all();
-check(count($discovery) === 3219, 'L’inventaire DoliConstDoc doit être complet.');
+check(count($discovery) === 3291, 'L’inventaire du code doit être complet.');
+check(count(array_filter($discovery, function ($row) { return $row['origin'] === 'doliconstdoc'; })) === 3219, 'Les 3 219 fiches DoliConstDoc doivent être conservées.');
 check(in_array(22, DolibarrFullOptionDiscovery::toCatalogEntry($discovery['AADE_WEBSERVICE_KEY'])['versions'], true), 'L’inventaire doit repérer les clés présentes en V22.');
 check(!isset($entries['AADE_WEBSERVICE_KEY']), 'Les clés de l’inventaire ne doivent pas être confondues avec les fiches vérifiées.');
 check(count($entries) >= 532, 'Toutes les constantes du wiki doivent figurer dans le catalogue.');

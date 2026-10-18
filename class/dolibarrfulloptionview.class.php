@@ -124,11 +124,11 @@ class DolibarrFullOptionView
         $html .= '<td class="dolibarrfulloption-option-main"><strong>'.self::e($entry['title_fr']).'</strong>';
         $html .= '<div class="opacitymedium dolibarrfulloption-key">'.self::e($entry['key']).'</div>';
         $html .= '<div class="dolibarrfulloption-description">'.self::e($entry['description_fr'] !== '' ? $entry['description_fr'] : 'Le comportement de cette constante n’est pas suffisamment décrit pour proposer une modification fiable.').'</div>';
-        if ($entry['source'] === 'doliconstdoc' && !empty($entry['purpose_en'])) {
+        if (in_array($entry['source'], array('doliconstdoc', 'code-index'), true) && !empty($entry['purpose_en'])) {
             $html .= '<details class="dolibarrfulloption-original"><summary>Résumé de la source (anglais)</summary><p>'.self::e($entry['purpose_en']).'</p></details>';
         }
         $html .= '<div class="dolibarrfulloption-meta">';
-        $html .= '<span class="opacitymedium">'.($supported ? 'V'.$major : ($entry['source'] === 'doliconstdoc' ? 'Non repérée en V'.$major : 'Absente en V'.$major)).'</span>';
+        $html .= '<span class="opacitymedium">'.($supported ? 'V'.$major : (in_array($entry['source'], array('doliconstdoc', 'code-index'), true) ? 'Non repérée en V'.$major : 'Absente en V'.$major)).'</span>';
         if ($entry['risk'] !== 'normal') {
             $html .= '<span class="opacitymedium">'.($entry['risk'] === 'bloquée' ? 'Lecture seule : sécurité' : 'Attention').'</span>';
         }
@@ -139,7 +139,7 @@ class DolibarrFullOptionView
         if ($editable) {
             $html .= self::control($entry, $settings, $major, $tab, $query);
         } else {
-            if ($entry['source'] === 'instance' || ($entry['source'] === 'doliconstdoc' && $supported)) {
+            if ($entry['source'] === 'instance' || (in_array($entry['source'], array('doliconstdoc', 'code-index'), true) && $supported)) {
                 $html .= '<a href="'.self::e(dol_buildpath('/admin/const.php', 1)).'">Ouvrir Divers pour modifier</a>';
             } else {
                 $html .= '<div class="dolibarrfulloption-readonly">'.($supported ? 'Réglage en cours de vérification' : 'Non disponible dans cette version').'</div>';

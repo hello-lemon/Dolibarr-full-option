@@ -42,7 +42,7 @@ class DolibarrFullOptionDiscovery
             'versions' => $versions,
             'type' => 'text',
             'risk' => 'attention',
-            'source' => 'doliconstdoc',
+            'source' => isset($row['origin']) && $row['origin'] === 'code' ? 'code-index' : 'doliconstdoc',
             'source_url' => $sourcePath ? 'https://github.com/Dolibarr/dolibarr/blob/'.$sourceVersion.'.0.'.($sourceVersion === 22 ? '4' : ($sourceVersion === 23 ? '4' : '1')).'/htdocs/'.$sourcePath : '',
             'editable' => false,
             'confidence' => $row['confidence'],
