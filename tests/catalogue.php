@@ -36,6 +36,11 @@ check(DolibarrFullOptionCatalog::find('ADD_UNSPLASH_LOGIN_BACKGROUND')['type'] =
 check(DolibarrFullOptionCatalog::find('MAIN_PASSWORD_FORGOTLINK')['type'] === 'url', 'Le lien de mot de passe oublié attend une URL vérifiée.');
 check(DolibarrFullOptionCatalog::find('MEMBER_EXT_URL_SUBSCRIPTION_INFO')['type'] === 'url', 'Le lien public des adhésions attend une URL vérifiée.');
 check(DolibarrFullOptionCatalog::find('API_DISABLE_LOGIN_API')['description_fr'] !== '(v14.0)', 'Le blocage des connexions API doit être expliqué.');
+check(DolibarrFullOptionCatalog::find('SOCIETE_ON_SEARCH_AND_LIST_GO_ON_CUSTOMER_OR_SUPPLIER_CARD')['type'] === 'boolean', 'La navigation des fiches tiers doit utiliser un interrupteur.');
+check(DolibarrFullOptionCatalog::find('MAIN_WAREHOUSE_LIST_DISPLAY_MODE')['values'] === array('0', '1', '2'), 'L’affichage des entrepôts doit proposer les trois modes du cœur.');
+foreach (array('MAIN_FIRST_PING_OK_ID', 'COMPANY_AQUARIUM_CLEAN_REGEX', 'MAIN_ODT_AS_PDF') as $managedKey) {
+    check(!DolibarrFullOptionCatalog::editable(DolibarrFullOptionCatalog::find($managedKey), 24), $managedKey.' ne doit pas accepter une valeur libre.');
+}
 foreach ($entries as $entry) {
     check(in_array($entry['group'], array_keys(DolibarrFullOptionCatalog::groups()), true), $entry['key'].' : domaine inconnu.');
     check(in_array($entry['type'], array('boolean', 'integer', 'text', 'enum', 'choices', 'url'), true), $entry['key'].' : type inconnu.');

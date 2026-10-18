@@ -113,6 +113,10 @@ class DolibarrFullOptionView
             $labels = array('0' => 'Interne puis fournisseur', '1' => 'Fournisseur uniquement', '2' => 'Fournisseur puis interne');
             return isset($labels[$choice]) ? $labels[$choice] : $choice;
         }
+        if ($key === 'MAIN_WAREHOUSE_LIST_DISPLAY_MODE') {
+            $labels = array('0' => 'Hiérarchie complète', '1' => 'Entrepôt seul', '2' => 'Dernier parent et entrepôt');
+            return isset($labels[$choice]) ? $labels[$choice] : $choice;
+        }
         return $choice;
     }
 
