@@ -23,7 +23,7 @@ class modDolibarrFullOption extends DolibarrModules
         $this->version = '0.1.0';
         $this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
         $this->picto = 'fa-sliders';
-        $this->module_parts = array();
+        $this->module_parts = array('js' => array('/dolibarrfulloption/js/const-link.js'));
         $this->dirs = array();
         $this->config_page_url = array('setup.php@dolibarrfulloption');
         $this->hidden = false;

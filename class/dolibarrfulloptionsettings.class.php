@@ -97,6 +97,19 @@ class DolibarrFullOptionSettings
             ksort($numbers, SORT_NUMERIC);
             return implode(',', array_map(function ($number) { return $number.':'.$number; }, array_keys($numbers)));
         }
+        if ($type === 'url') {
+            $value = trim($value);
+            if ($value === '') {
+                return '';
+            }
+            $parts = parse_url($value);
+            if (strlen($value) > 500 || !filter_var($value, FILTER_VALIDATE_URL) || !is_array($parts)
+                || !isset($parts['scheme'], $parts['host']) || strtolower($parts['scheme']) !== 'https'
+                || isset($parts['user']) || isset($parts['pass']) || preg_match('/[\x00-\x1F\x7F<>\"\'\\\\]/', $value)) {
+                throw new InvalidArgumentException('Saisir une URL HTTPS valide, sans identifiant ni caractère spécial.');
+            }
+            return $value;
+        }
         $value = trim($value);
         if ($value === '' || strlen($value) > 500 || preg_match('/[\x00-\x1F\x7F<>]/', $value)) {
             throw new InvalidArgumentException('Saisir une valeur de 1 à 500 caractères, sans HTML ni saut de ligne.');

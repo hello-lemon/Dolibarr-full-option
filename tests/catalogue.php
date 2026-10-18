@@ -24,12 +24,24 @@ check(DolibarrFullOptionCatalog::majorVersion() === 24, 'La version majeure doit
 check(DolibarrFullOptionCatalog::find('MAIN_PAGESIZE_CHOICES')['type'] === 'choices', 'Le sélecteur de tailles doit être spécialisé.');
 check(!DolibarrFullOptionCatalog::editable(DolibarrFullOptionCatalog::find('MAIN_SECURITY_SALT'), 24), 'Une constante sensible doit rester en lecture seule.');
 check(!DolibarrFullOptionCatalog::editable(DolibarrFullOptionCatalog::find('MAIN_NO_CONCAT_DESCRIPTION'), 24), 'Une ancienne constante ne doit pas être modifiable en V24.');
+check(DolibarrFullOptionCatalog::editable(DolibarrFullOptionCatalog::find('FCKEDITOR_ENABLE_MAIL'), 22), 'L’éditeur de courriel doit être disponible en V22.');
+check(DolibarrFullOptionCatalog::editable(DolibarrFullOptionCatalog::find('BANK_DISABLE_DIRECT_INPUT'), 24), 'Le verrou de saisie bancaire doit être modifiable.');
+check(DolibarrFullOptionCatalog::find('ADD_UNSPLASH_LOGIN_BACKGROUND')['type'] === 'url', 'Le fond de connexion attend une URL.');
 foreach ($entries as $entry) {
     check(in_array($entry['group'], array_keys(DolibarrFullOptionCatalog::groups()), true), $entry['key'].' : domaine inconnu.');
-    check(in_array($entry['type'], array('boolean', 'integer', 'text', 'enum', 'choices'), true), $entry['key'].' : type inconnu.');
+    check(in_array($entry['type'], array('boolean', 'integer', 'text', 'enum', 'choices', 'url'), true), $entry['key'].' : type inconnu.');
     check(!$entry['editable'] || trim($entry['description_fr']) !== '', $entry['key'].' : description absente.');
 }
 $choices = DolibarrFullOptionCatalog::find('MAIN_PAGESIZE_CHOICES');
+check(DolibarrFullOptionSettings::validate(DolibarrFullOptionCatalog::find('ADD_UNSPLASH_LOGIN_BACKGROUND'), 'https://example.org/image.jpg') === 'https://example.org/image.jpg', 'L’URL HTTPS doit être acceptée.');
+try {
+    DolibarrFullOptionSettings::validate(DolibarrFullOptionCatalog::find('ADD_UNSPLASH_LOGIN_BACKGROUND'), 'http://example.org/image.jpg');
+    check(false, 'Une URL non chiffrée doit être rejetée.');
+} catch (InvalidArgumentException $e) {
+}
+check(DolibarrFullOptionCatalog::registerProviderOptions(array(array('key' => 'EXAMPLE_OPTION', 'module' => 'Exemple', 'title_fr' => 'Option exemple', 'description_fr' => 'Description en français.', 'versions' => array(22, 23, 24), 'type' => 'boolean', 'editable' => true))) === 1, 'Une option fournie par un module doit être ajoutée.');
+check(DolibarrFullOptionCatalog::find('EXAMPLE_OPTION')['group'] === 'Modules', 'Les options fournies doivent être dans l’onglet Modules.');
+check(DolibarrFullOptionCatalog::registerProviderOptions(array(array('key' => 'BANK_DISABLE_DIRECT_INPUT', 'module' => 'Exemple', 'title_fr' => 'Doublon', 'description_fr' => 'Description.', 'versions' => array(24), 'type' => 'boolean'))) === 0, 'Une option fournie ne doit pas remplacer une fiche officielle.');
 check(DolibarrFullOptionSettings::validate($choices, '25:25,10:10') === '10:10,25:25', 'Les tailles doivent être normalisées.');
 try {
     DolibarrFullOptionSettings::validate($choices, '10:25');

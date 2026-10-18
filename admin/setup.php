@@ -33,6 +33,14 @@ $langs->load('dolibarrfulloption@dolibarrfulloption');
 
 $major = DolibarrFullOptionCatalog::majorVersion();
 $entries = DolibarrFullOptionCatalog::all();
+$hookmanager->initHooks(array('dolibarrfulloption'));
+$hookAction = '';
+$hookContext = new stdClass();
+$hookmanager->executeHooks('provideDolibarrFullOptionEntries', array('dolibarr_version' => DOL_VERSION), $hookContext, $hookAction);
+if (!empty($hookmanager->resArray['options'])) {
+    DolibarrFullOptionCatalog::registerProviderOptions($hookmanager->resArray['options']);
+    $entries = DolibarrFullOptionCatalog::all();
+}
 $settings = new DolibarrFullOptionSettings($db, $conf->entity);
 $tabs = DolibarrFullOptionCatalog::groups();
 $tab = GETPOST('tab', 'alpha');
@@ -84,6 +92,20 @@ if ($action === 'set' || $action === 'reset') {
     }
 }
 
+if ($query !== '') {
+    foreach ($settings->load() as $key => $stored) {
+        if (!isset($entries[$key]) && preg_match('/^[A-Z][A-Z0-9_]+$/', $key) && mb_stripos($key, $query) !== false) {
+            $entries[$key] = array(
+                'key' => $key, 'group' => 'Modules', 'section' => 'Instance',
+                'title_fr' => 'Constante définie sur cette instance',
+                'description_fr' => 'Ce réglage existe dans la base de cette instance. Son effet et son format n’ont pas encore été vérifiés ; il peut être modifié depuis la page native Divers de Dolibarr.',
+                'versions' => array($major), 'type' => 'text', 'risk' => 'normal',
+                'source' => 'instance', 'source_url' => '', 'editable' => false,
+            );
+        }
+    }
+}
+
 $counts = array_fill_keys(array_values($tabs), 0);
 $counts['historique'] = 0;
 $filtered = array();
@@ -118,50 +140,44 @@ llxHeader('', 'Options avancées Dolibarr');
 print '<link rel="stylesheet" href="'.dol_buildpath('/dolibarrfulloption/css/dolibarrfulloption.css', 1).'">';
 print '<div id="dolibarrfulloption-admin">';
 print load_fiche_titre('Options avancées', '', 'fa-sliders');
-print '<p class="dolibarrfulloption-intro">Un catalogue expliqué en français, organisé par domaine et adapté à votre version de Dolibarr.</p>';
-print '<div class="dolibarrfulloption-version"><span class="dolibarrfulloption-status-dot"></span><strong>Version détectée : '.dol_escape_htmltag(DOL_VERSION).'</strong>';
-print '<span>Catalogue vérifié avec Dolibarr 22.0.4, 23.0.4 et 24.0.1.</span></div>';
+print '<div class="opacitymedium dolibarrfulloption-version">Dolibarr '.dol_escape_htmltag(DOL_VERSION).' · Catalogue vérifié sur V22, V23 et V24. Les constantes absentes de cette version figurent dans « Anciennes options ».</div>';
 if ($major !== 22 && $major !== 23 && $major !== 24) {
-    print '<div class="dolibarrfulloption-warning">Cette version n’a pas été vérifiée. Le catalogue reste consultable, sans modification possible.</div>';
+    print '<div class="warning">Cette version n’a pas été vérifiée. Le catalogue reste consultable, sans modification possible.</div>';
 }
-print '<div class="dolibarrfulloption-layout">';
-print '<nav class="dolibarrfulloption-sidebar" aria-label="Domaines d’options"><h2>Domaines</h2>';
+$baseUrl = dol_buildpath('/dolibarrfulloption/admin/setup.php', 1);
+$head = array();
 foreach ($tabs as $label => $slug) {
-    print '<a class="'.($tab === $slug && $query === '' ? 'is-active' : '').'" href="'.dol_buildpath('/dolibarrfulloption/admin/setup.php', 1).'?tab='.urlencode($slug).'">';
-    print '<span>'.dol_escape_htmltag($label).'</span><small>'.(int) $counts[$slug].'</small></a>';
+    $head[] = array($baseUrl.'?tab='.urlencode($slug), $label.' ('.(int) $counts[$slug].')', $slug);
 }
-print '<a class="dolibarrfulloption-archive '.($tab === 'historique' && $query === '' ? 'is-active' : '').'" href="'.dol_buildpath('/dolibarrfulloption/admin/setup.php', 1).'?tab=historique"><span>Anciennes options</span><small>'.(int) $counts['historique'].'</small></a>';
-print '</nav><div class="dolibarrfulloption-content">';
-print '<form method="get" class="dolibarrfulloption-search"><input type="hidden" name="tab" value="'.dol_escape_htmltag($tab).'">';
-print '<label for="dfo-search">Rechercher dans toutes les options</label><div><input id="dfo-search" type="search" name="q" value="'.dol_escape_htmltag($query).'" placeholder="Nom, constante ou effet du réglage…">';
-print '<button type="submit">Rechercher</button></div></form>';
+$head[] = array($baseUrl.'?tab=historique', 'Anciennes options ('.(int) $counts['historique'].')', 'historique');
+print dol_get_fiche_head($head, $tab, '', -1, '');
+print '<form method="get" class="dolibarrfulloption-search">';
+print '<input type="hidden" name="tab" value="'.dol_escape_htmltag($tab).'">';
+print '<label for="dfo-search">Rechercher une option</label> ';
+print '<input id="dfo-search" class="minwidth300" type="search" name="q" value="'.dol_escape_htmltag($query).'" placeholder="Nom, constante ou effet du réglage…"> ';
+print '<button type="submit" class="button">Rechercher</button>';
 if ($query !== '') {
-    print '<h2>Résultats pour « '.dol_escape_htmltag($query).' »</h2>';
-} elseif ($tab === 'historique') {
-    print '<h2>Anciennes options</h2><p class="dolibarrfulloption-section-desc">Ces constantes figurent dans la documentation mais ne sont pas présentes dans le code vérifié de Dolibarr '.$major.'. Elles restent visibles pour comprendre une ancienne configuration.</p>';
-} else {
-    $label = array_search($tab, $tabs, true);
-    print '<h2>'.dol_escape_htmltag($label).'</h2><p class="dolibarrfulloption-section-desc">'.(int) $counts[$tab].' options compatibles avec Dolibarr '.$major.'.</p>';
+    print ' <a href="'.$baseUrl.'?tab='.urlencode($tab).'">Effacer</a>';
 }
-print '<div class="dolibarrfulloption-result-count">'.count($filtered).' option'.(count($filtered) > 1 ? 's' : '').' trouvée'.(count($filtered) > 1 ? 's' : '').'</div>';
+print '</form>';
+if ($tab === 'historique' && $query === '') {
+    print '<div class="opacitymedium dolibarrfulloption-context">Constantes documentées mais absentes du code vérifié de Dolibarr '.$major.'.</div>';
+}
+$options = '&tab='.urlencode($tab);
+if ($query !== '') {
+    $options .= '&q='.urlencode($query);
+}
+print_barre_liste($query !== '' ? 'Résultats pour « '.dol_escape_htmltag($query).' »' : ($tab === 'historique' ? 'Anciennes options' : dol_escape_htmltag((string) array_search($tab, $tabs, true))), $page - 1, $baseUrl, $options, '', '', '', count($visible), count($filtered), 'fa-sliders', 0, '', '', $perPage);
+print '<div class="div-table-responsive-no-min"><table class="noborder centpercent dolibarrfulloption-table">';
+print '<tr class="liste_titre"><th>Option et effet</th><th class="dolibarrfulloption-action">Réglage</th></tr>';
 if (!$visible) {
-    print '<div class="dolibarrfulloption-empty">Aucune option ne correspond à cette recherche.</div>';
+    print '<tr class="oddeven"><td colspan="2" class="opacitymedium center">Aucune option ne correspond à cette recherche.</td></tr>';
 }
 foreach ($visible as $entry) {
     print DolibarrFullOptionView::option($entry, $settings, $major, $tab, $query);
 }
-if ($totalPages > 1) {
-    print '<nav class="dolibarrfulloption-pagination" aria-label="Pages">';
-    for ($i = 1; $i <= $totalPages; $i++) {
-        $url = dol_buildpath('/dolibarrfulloption/admin/setup.php', 1).'?tab='.urlencode($tab).'&page='.$i;
-        if ($query !== '') {
-            $url .= '&q='.urlencode($query);
-        }
-        print '<a class="'.($i === $page ? 'is-active' : '').'" href="'.dol_escape_htmltag($url).'">'.$i.'</a>';
-    }
-    print '</nav>';
-}
-print '</div></div>';
+print '</table></div>';
+print dol_get_fiche_end(-1);
 print '</div>';
 print '<script src="'.dol_buildpath('/dolibarrfulloption/js/dolibarrfulloption.js', 1).'"></script>';
 llxFooter();

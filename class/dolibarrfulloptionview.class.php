@@ -48,7 +48,7 @@ class DolibarrFullOptionView
                 $label = self::enumLabel($key, $choice);
                 $html .= '<option value="'.self::e($choice).'"'.($value === $choice ? ' selected' : '').'>'.self::e($label).'</option>';
             }
-            $html .= '</select><button type="submit" class="dolibarrfulloption-save">Appliquer</button>';
+            $html .= '</select><button type="submit" class="button">Appliquer</button>';
         } elseif ($type === 'choices') {
             $html .= '<span class="dolibarrfulloption-field-label">Choix proposés</span>';
             $html .= '<div class="dolibarrfulloption-choice-editor" data-choice-editor>';
@@ -58,15 +58,19 @@ class DolibarrFullOptionView
             $html .= '<input type="hidden" name="value" value="'.self::e($value).'" data-choice-value>';
             $html .= '<details><summary>Valeur technique Dolibarr</summary><code data-choice-technical></code></details>';
             $html .= '<p class="dolibarrfulloption-choice-warning" data-choice-warning hidden>La valeur actuelle utilise un format personnalisé. Elle reste intacte ; utilisez la page native « Configuration &gt; Divers » de Dolibarr pour la modifier.</p>';
-            $html .= '</div><button type="submit" class="dolibarrfulloption-save">Appliquer</button>';
+            $html .= '</div><button type="submit" class="button">Appliquer</button>';
         } elseif ($type === 'integer') {
             $html .= '<label class="dolibarrfulloption-field-label" for="dfo-'.self::e($key).'">Valeur</label>';
             $html .= '<input id="dfo-'.self::e($key).'" type="number" name="value" step="1" value="'.self::e($value).'" placeholder="Nombre entier">';
-            $html .= '<button type="submit" class="dolibarrfulloption-save">Appliquer</button>';
+            $html .= '<button type="submit" class="button">Appliquer</button>';
+        } elseif ($type === 'url') {
+            $html .= '<label class="dolibarrfulloption-field-label" for="dfo-'.self::e($key).'">Adresse HTTPS</label>';
+            $html .= '<input id="dfo-'.self::e($key).'" type="url" name="value" maxlength="500" value="'.self::e($value).'" placeholder="https://exemple.fr/image.jpg">';
+            $html .= '<button type="submit" class="button">Appliquer</button>';
         } else {
             $html .= '<label class="dolibarrfulloption-field-label" for="dfo-'.self::e($key).'">Valeur</label>';
             $html .= '<input id="dfo-'.self::e($key).'" type="text" name="value" maxlength="500" value="'.self::e($value).'" placeholder="Saisir une valeur">';
-            $html .= '<button type="submit" class="dolibarrfulloption-save">Appliquer</button>';
+            $html .= '<button type="submit" class="button">Appliquer</button>';
         }
 
         if ($entry['risk'] === 'attention') {
@@ -116,23 +120,29 @@ class DolibarrFullOptionView
     {
         $supported = DolibarrFullOptionCatalog::supports($entry, $major);
         $editable = DolibarrFullOptionCatalog::editable($entry, $major);
-        $html = '<article class="dolibarrfulloption-option'.($supported ? '' : ' is-historical').'">';
-        $html .= '<div class="dolibarrfulloption-option-main"><h3>'.self::e($entry['title_fr']).'</h3>';
-        $html .= '<code class="dolibarrfulloption-key">'.self::e($entry['key']).'</code>';
-        $html .= '<p>'.self::e($entry['description_fr'] !== '' ? $entry['description_fr'] : 'Le comportement de cette constante n’est pas suffisamment décrit pour proposer une modification fiable.').'</p>';
-        $html .= '<div class="dolibarrfulloption-badges">';
-        $html .= '<span class="dolibarrfulloption-badge '.($supported ? 'good' : 'old').'">'.($supported ? 'Compatible V'.$major : 'Ancienne ou absente en V'.$major).'</span>';
+        $html = '<tr class="oddeven dolibarrfulloption-option'.($supported ? '' : ' is-historical').'">';
+        $html .= '<td class="dolibarrfulloption-option-main"><strong>'.self::e($entry['title_fr']).'</strong>';
+        $html .= '<div class="opacitymedium dolibarrfulloption-key">'.self::e($entry['key']).'</div>';
+        $html .= '<div class="dolibarrfulloption-description">'.self::e($entry['description_fr'] !== '' ? $entry['description_fr'] : 'Le comportement de cette constante n’est pas suffisamment décrit pour proposer une modification fiable.').'</div>';
+        $html .= '<div class="dolibarrfulloption-meta">';
+        $html .= '<span class="opacitymedium">'.($supported ? 'V'.$major : 'Absente en V'.$major).'</span>';
         if ($entry['risk'] !== 'normal') {
-            $html .= '<span class="dolibarrfulloption-badge warning">'.($entry['risk'] === 'bloquée' ? 'Lecture seule : sécurité' : 'Attention').'</span>';
+            $html .= '<span class="opacitymedium">'.($entry['risk'] === 'bloquée' ? 'Lecture seule : sécurité' : 'Attention').'</span>';
         }
-        $html .= '<a href="'.self::e($entry['source_url']).'" target="_blank" rel="noopener noreferrer">Source : '.($entry['source'] === 'wiki' ? 'Wiki' : 'Code Dolibarr').'</a>';
-        $html .= '</div></div>';
+        if (!empty($entry['source_url'])) {
+            $html .= '<a href="'.self::e($entry['source_url']).'" target="_blank" rel="noopener noreferrer">'.($entry['source'] === 'wiki' ? 'Wiki' : ($entry['source'] === 'module' ? 'Module' : 'Code Dolibarr')).'</a>';
+        }
+        $html .= '</div></td><td class="dolibarrfulloption-action">';
         if ($editable) {
             $html .= self::control($entry, $settings, $major, $tab, $query);
         } else {
-            $html .= '<div class="dolibarrfulloption-readonly">'.($supported ? 'Réglage présenté en lecture seule' : 'Non disponible dans cette version').'</div>';
+            if ($entry['source'] === 'instance') {
+                $html .= '<a href="'.self::e(dol_buildpath('/admin/const.php', 1)).'">Modifier dans Divers</a>';
+            } else {
+                $html .= '<div class="dolibarrfulloption-readonly">'.($supported ? 'Réglage en cours de vérification' : 'Non disponible dans cette version').'</div>';
+            }
         }
-        $html .= '</article>';
+        $html .= '</td></tr>';
         return $html;
     }
 }
