@@ -18468,27 +18468,6 @@
     }
   },
   {
-    "key": "MAIN_DASHBOARD_USE_TOTAL_HT",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "comm/index.php",
-        "comm/propal/index.php"
-      ],
-      "24": [
-        "comm/index.php",
-        "comm/propal/index.php"
-      ]
-    },
-    "source_files": {
-      "23": 2,
-      "24": 2
-    }
-  },
-  {
     "key": "MAIN_DATE_IN_MEMORY_ARE_NOT_GMT",
     "versions": [
       23,
@@ -19895,69 +19874,6 @@
     "source_files": {
       "23": 29,
       "24": 31
-    }
-  },
-  {
-    "key": "MAIN_DISABLE_PROPAGATE_NOTES_FROM_ORIGIN",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "commande/class/commande.class.php",
-        "compta/facture/class/facture.class.php"
-      ],
-      "24": [
-        "commande/class/commande.class.php",
-        "compta/facture/class/facture.class.php"
-      ]
-    },
-    "source_files": {
-      "23": 2,
-      "24": 2
-    }
-  },
-  {
-    "key": "MAIN_DISABLE_RECURRING_EVENTS",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "comm/action/card.php"
-      ],
-      "24": [
-        "comm/action/card.php"
-      ]
-    },
-    "source_files": {
-      "23": 1,
-      "24": 1
-    }
-  },
-  {
-    "key": "MAIN_DISABLE_SUGGEST_REF_AS_PREFIX",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "core/class/fileupload.class.php",
-        "core/tpl/document_actions_post_headers.tpl.php",
-        "expensereport/tpl/expensereport_addfile.tpl.php"
-      ],
-      "24": [
-        "core/class/fileupload.class.php",
-        "core/tpl/document_actions_post_headers.tpl.php",
-        "expensereport/tpl/expensereport_addfile.tpl.php"
-      ]
-    },
-    "source_files": {
-      "23": 3,
-      "24": 3
     }
   },
   {
@@ -28044,29 +27960,6 @@
     }
   },
   {
-    "key": "MAIN_PDF_ENABLE_COL_HEAD_TITLE_REPEAT",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "core/modules/commande/doc/pdf_eratosthene.modules.php",
-        "core/modules/facture/doc/pdf_sponge.modules.php",
-        "core/modules/propale/doc/pdf_cyan.modules.php"
-      ],
-      "24": [
-        "core/modules/commande/doc/pdf_eratosthene.modules.php",
-        "core/modules/facture/doc/pdf_sponge.modules.php",
-        "core/modules/propale/doc/pdf_cyan.modules.php"
-      ]
-    },
-    "source_files": {
-      "23": 3,
-      "24": 3
-    }
-  },
-  {
     "key": "MAIN_PDF_FORMAT",
     "versions": [
       23,
@@ -28108,29 +28001,6 @@
     "source_files": {
       "23": 41,
       "24": 40
-    }
-  },
-  {
-    "key": "MAIN_PDF_HIDE_CHQ_ADDRESS",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "core/modules/commande/doc/pdf_einstein.modules.php",
-        "core/modules/commande/doc/pdf_eratosthene.modules.php",
-        "core/modules/facture/doc/pdf_crabe.modules.php"
-      ],
-      "24": [
-        "core/modules/commande/doc/pdf_einstein.modules.php",
-        "core/modules/commande/doc/pdf_eratosthene.modules.php",
-        "core/modules/facture/doc/pdf_octopus.modules.php"
-      ]
-    },
-    "source_files": {
-      "23": 9,
-      "24": 8
     }
   },
   {
@@ -29032,25 +28902,6 @@
     }
   },
   {
-    "key": "MAIN_SEARCHFORM_ADHERENT_DISABLED",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "core/ajax/selectsearchbox.php"
-      ],
-      "24": [
-        "core/ajax/selectsearchbox.php"
-      ]
-    },
-    "source_files": {
-      "23": 1,
-      "24": 1
-    }
-  },
-  {
     "key": "MAIN_SEARCHFORM_CONTACT_DISABLED",
     "versions": [
       23,
@@ -29279,63 +29130,6 @@
     }
   },
   {
-    "key": "MAIN_SEARCHFORM_MRP_DISABLED",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "core/ajax/selectsearchbox.php"
-      ],
-      "24": [
-        "core/ajax/selectsearchbox.php"
-      ]
-    },
-    "source_files": {
-      "23": 1,
-      "24": 1
-    }
-  },
-  {
-    "key": "MAIN_SEARCHFORM_PRODUITSERVICE_DISABLED",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "core/ajax/selectsearchbox.php"
-      ],
-      "24": [
-        "core/ajax/selectsearchbox.php"
-      ]
-    },
-    "source_files": {
-      "23": 1,
-      "24": 1
-    }
-  },
-  {
-    "key": "MAIN_SEARCHFORM_PROJECT_DISABLED",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "core/ajax/selectsearchbox.php"
-      ],
-      "24": [
-        "core/ajax/selectsearchbox.php"
-      ]
-    },
-    "source_files": {
-      "23": 1,
-      "24": 1
-    }
-  },
-  {
     "key": "MAIN_SEARCHFORM_RESOURCE_DISABLED",
     "versions": [
       23,
@@ -29413,25 +29207,6 @@
   },
   {
     "key": "MAIN_SEARCHFORM_SUPPLIER_RECEPTION_DISABLED",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "core/ajax/selectsearchbox.php"
-      ],
-      "24": [
-        "core/ajax/selectsearchbox.php"
-      ]
-    },
-    "source_files": {
-      "23": 1,
-      "24": 1
-    }
-  },
-  {
-    "key": "MAIN_SEARCHFORM_TASK_DISABLED",
     "versions": [
       23,
       24
@@ -30342,25 +30117,6 @@
     }
   },
   {
-    "key": "MAIN_SHOW_GLOBAL_REF_CUSTOMER_SUPPLIER",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "compta/facture/list.php"
-      ],
-      "24": [
-        "compta/facture/list.php"
-      ]
-    },
-    "source_files": {
-      "23": 1,
-      "24": 1
-    }
-  },
-  {
     "key": "MAIN_SHOW_HT_ON_SUMMARY",
     "versions": [
       23,
@@ -30393,25 +30149,6 @@
       ],
       "24": [
         "core/modules/facture/doc/pdf_octopus.modules.php"
-      ]
-    },
-    "source_files": {
-      "23": 1,
-      "24": 1
-    }
-  },
-  {
-    "key": "MAIN_SHOW_LANGUAGE_CODE",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "core/class/translate.class.php"
-      ],
-      "24": [
-        "core/class/translate.class.php"
       ]
     },
     "source_files": {
@@ -31499,25 +31236,6 @@
     "source_files": {
       "23": 2,
       "24": 2
-    }
-  },
-  {
-    "key": "MAIN_USE_AUTOWRAP_ON_FREETEXT",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "core/lib/pdf.lib.php"
-      ],
-      "24": [
-        "core/lib/pdf.lib.php"
-      ]
-    },
-    "source_files": {
-      "23": 1,
-      "24": 1
     }
   },
   {
@@ -34876,25 +34594,6 @@
     }
   },
   {
-    "key": "ORDER_BOX_LAST_ORDERS_SHOW_VALIDATE_USER",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "core/boxes/box_commandes.php"
-      ],
-      "24": [
-        "core/boxes/box_commandes.php"
-      ]
-    },
-    "source_files": {
-      "23": 1,
-      "24": 1
-    }
-  },
-  {
     "key": "ORDER_BOX_LAST_ORDERS_VALIDATED_ONLY",
     "versions": [
       23,
@@ -34968,29 +34667,6 @@
     "source_files": {
       "23": 1,
       "24": 1
-    }
-  },
-  {
-    "key": "ORDER_DISABLE_DELIVERY_DATE",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "commande/list.php",
-        "commande/list_det.php",
-        "fourn/class/fournisseur.commande.class.php"
-      ],
-      "24": [
-        "commande/list.php",
-        "commande/list_det.php",
-        "fourn/class/fournisseur.commande.class.php"
-      ]
-    },
-    "source_files": {
-      "23": 3,
-      "24": 3
     }
   },
   {
@@ -38516,25 +38192,6 @@
     }
   },
   {
-    "key": "PRODUCT_STOCK_LIST_SHOW_VIRTUAL_WITH_NO_PHYSICAL",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "product/reassort.php"
-      ],
-      "24": [
-        "product/reassort.php"
-      ]
-    },
-    "source_files": {
-      "23": 1,
-      "24": 1
-    }
-  },
-  {
     "key": "PRODUCT_STOCK_LIST_SHOW_WITH_PRECALCULATED_DENORMALIZED_PHYSICAL_STOCK",
     "versions": [
       23,
@@ -39283,63 +38940,6 @@
       ],
       "24": [
         "projet/card.php"
-      ]
-    },
-    "source_files": {
-      "23": 1,
-      "24": 1
-    }
-  },
-  {
-    "key": "PROJECT_DISABLE_TIMESHEET_PERMONTH",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "core/lib/project.lib.php"
-      ],
-      "24": [
-        "core/lib/project.lib.php"
-      ]
-    },
-    "source_files": {
-      "23": 1,
-      "24": 1
-    }
-  },
-  {
-    "key": "PROJECT_DISABLE_TIMESHEET_PERTIME",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "core/lib/project.lib.php"
-      ],
-      "24": [
-        "core/lib/project.lib.php"
-      ]
-    },
-    "source_files": {
-      "23": 1,
-      "24": 1
-    }
-  },
-  {
-    "key": "PROJECT_DISABLE_TIMESHEET_PERWEEK",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "core/lib/project.lib.php"
-      ],
-      "24": [
-        "core/lib/project.lib.php"
       ]
     },
     "source_files": {
@@ -42751,27 +42351,6 @@
     }
   },
   {
-    "key": "SOCIETE_DISABLE_CUSTOMERS_STATS",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "core/boxes/box_dolibarr_state_board.php",
-        "societe/index.php"
-      ],
-      "24": [
-        "core/boxes/box_dolibarr_state_board.php",
-        "societe/index.php"
-      ]
-    },
-    "source_files": {
-      "23": 2,
-      "24": 2
-    }
-  },
-  {
     "key": "SOCIETE_DISABLE_DEFAULT_SALESREPRESENTATIVE",
     "versions": [
       23,
@@ -42788,27 +42367,6 @@
     "source_files": {
       "23": 1,
       "24": 1
-    }
-  },
-  {
-    "key": "SOCIETE_DISABLE_PROSPECTS_STATS",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "core/boxes/box_dolibarr_state_board.php",
-        "societe/index.php"
-      ],
-      "24": [
-        "core/boxes/box_dolibarr_state_board.php",
-        "societe/index.php"
-      ]
-    },
-    "source_files": {
-      "23": 2,
-      "24": 2
     }
   },
   {
@@ -42885,27 +42443,6 @@
     "source_files": {
       "23": 1,
       "24": 1
-    }
-  },
-  {
-    "key": "SOCIETE_DISABLE_SUPPLIERS_STATS",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "core/boxes/box_dolibarr_state_board.php",
-        "societe/index.php"
-      ],
-      "24": [
-        "core/boxes/box_dolibarr_state_board.php",
-        "societe/index.php"
-      ]
-    },
-    "source_files": {
-      "23": 2,
-      "24": 2
     }
   },
   {

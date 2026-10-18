@@ -5,9 +5,9 @@ Module communautaire pour Dolibarr 22, 23 et 24. Il rassemble les options avanc�
 ## Contenu du catalogue
 
 - 532 constantes recensées sur la page [Setup Other du wiki Dolibarr](https://wiki.dolibarr.org/index.php/Setup_Other).
-- 24 options supplémentaires sélectionnées dans le code officiel.
-- 556 fiches au total, comparées aux sources officielles 22.0.4, 23.0.4 et 24.0.1.
-- Un [inventaire complémentaire](docs/audit-code.md) recense 2 635 autres constantes repérées dans le code. Le [répertoire DoliConstDoc](docs/inventaire-doliconstdoc.md) apporte 3 219 clés issues d’une base GPL indépendante, recoupées avec les sources 22, 23 et 24. Ces données sont des pistes d’analyse, pas des réglages automatiquement modifiables.
+- 47 options supplémentaires sélectionnées dans le code officiel.
+- 579 fiches au total, comparées aux sources officielles 22.0.4, 23.0.4 et 24.0.1.
+- Un [inventaire complémentaire](docs/audit-code.md) recense 2 612 autres constantes repérées dans le code. Le [répertoire DoliConstDoc](docs/inventaire-doliconstdoc.md) apporte 3 219 clés issues d’une base GPL indépendante, recoupées avec les sources 22, 23 et 24. Ces données sont des pistes d’analyse, pas des réglages automatiquement modifiables.
 
 Une constante présente dans le code peut dépendre d’un autre module ou d’un contexte particulier. Les fiches dont le format ou l’effet est incertain restent en lecture seule. Les versions autres que 22, 23 et 24 sont consultables sans écriture. Avant toute modification, lire la description et vérifier le comportement sur une instance de test.
 
