@@ -110,6 +110,7 @@ class DolibarrFullOptionCatalog
             'Projets et services' => 'projets',
             'Sécurité et système' => 'securite',
             'Modules' => 'modules',
+            'Inventaire du code' => 'inventaire',
         );
     }
 }

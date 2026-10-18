@@ -41,3 +41,6 @@
     #dolibarrfulloption-admin .dolibarrfulloption-option td { display: block; width: 100%; }
     #dolibarrfulloption-admin .dolibarrfulloption-table tr.liste_titre th:last-child { display: none; }
 }
+
+#dolibarrfulloption-admin .dolibarrfulloption-original { margin-top: 6px; }
+#dolibarrfulloption-admin .dolibarrfulloption-original p { margin: 5px 0; }

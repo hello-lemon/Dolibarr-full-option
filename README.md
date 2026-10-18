@@ -1,13 +1,13 @@
 # Dolibarr Full Option
 
-Module communautaire pour Dolibarr 22, 23 et 24. Il rassemble les options avancées dans une page d’administration en français : onglets et tableau natifs, recherche, explication de chaque constante et commande adaptée à sa valeur (interrupteur, liste, nombre, URL ou champ texte). La version de Dolibarr est détectée automatiquement. Les options absentes du code de cette version restent consultables sous **Anciennes options**, sans commande d’écriture.
+Module communautaire pour Dolibarr 22, 23 et 24. Il rassemble les options avancées dans une page d’administration en français : onglets et tableau natifs, recherche, explication de chaque constante et commande adaptée à sa valeur (interrupteur, liste, nombre, URL ou champ texte). La version de Dolibarr est détectée automatiquement. Les options absentes du code de cette version restent consultables sous **Anciennes options**, sans commande d’écriture. L’onglet **Inventaire du code** permet de rechercher les autres clés repérées dans les sources de la version utilisée. Le résumé original anglais y reste consultable pendant la revue française ; ces clés ouvrent la page native Divers pour toute modification.
 
 ## Contenu du catalogue
 
 - 532 constantes recensées sur la page [Setup Other du wiki Dolibarr](https://wiki.dolibarr.org/index.php/Setup_Other).
-- 14 options supplémentaires sélectionnées dans le code officiel.
-- 546 fiches au total, comparées aux sources officielles 22.0.4, 23.0.4 et 24.0.1.
-- Un [inventaire complémentaire](docs/audit-code.md) recense 2 645 autres constantes repérées dans le code 23 et 24. Ce sont des pistes d’analyse, pas des réglages automatiquement modifiables.
+- 24 options supplémentaires sélectionnées dans le code officiel.
+- 556 fiches au total, comparées aux sources officielles 22.0.4, 23.0.4 et 24.0.1.
+- Un [inventaire complémentaire](docs/audit-code.md) recense 2 635 autres constantes repérées dans le code. Le [répertoire DoliConstDoc](docs/inventaire-doliconstdoc.md) apporte 3 219 clés issues d’une base GPL indépendante, recoupées avec les sources 22, 23 et 24. Ces données sont des pistes d’analyse, pas des réglages automatiquement modifiables.
 
 Une constante présente dans le code peut dépendre d’un autre module ou d’un contexte particulier. Les fiches dont le format ou l’effet est incertain restent en lecture seule. Les versions autres que 22, 23 et 24 sont consultables sans écriture. Avant toute modification, lire la description et vérifier le comportement sur une instance de test.
 

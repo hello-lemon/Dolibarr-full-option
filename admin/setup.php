@@ -23,6 +23,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 dol_include_once('/dolibarrfulloption/class/dolibarrfulloptioncatalog.class.php');
 dol_include_once('/dolibarrfulloption/class/dolibarrfulloptionsettings.class.php');
 dol_include_once('/dolibarrfulloption/class/dolibarrfulloptionview.class.php');
+dol_include_once('/dolibarrfulloption/class/dolibarrfulloptiondiscovery.class.php');
 
 if (!$user->admin || !isModEnabled('dolibarrfulloption')) {
     accessforbidden();
@@ -42,6 +43,11 @@ if (!empty($hookmanager->resArray['options'])) {
     $entries = DolibarrFullOptionCatalog::all();
 }
 $settings = new DolibarrFullOptionSettings($db, $conf->entity);
+foreach (DolibarrFullOptionDiscovery::all() as $key => $row) {
+    if (!isset($entries[$key])) {
+        $entries[$key] = DolibarrFullOptionDiscovery::toCatalogEntry($row);
+    }
+}
 $tabs = DolibarrFullOptionCatalog::groups();
 $tab = GETPOST('tab', 'alpha');
 $query = trim(GETPOST('q', 'alphanohtml'));
@@ -112,23 +118,35 @@ $filtered = array();
 foreach ($entries as $entry) {
     $compatible = DolibarrFullOptionCatalog::supports($entry, $major);
     if (!$compatible) {
-        $counts['historique']++;
+        if ($entry['source'] !== 'doliconstdoc') {
+            $counts['historique']++;
+        }
     } elseif (isset($tabs[$entry['group']])) {
         $counts[$tabs[$entry['group']]]++;
     }
 
     if ($query !== '') {
-        $haystack = $entry['title_fr'].' '.$entry['key'].' '.$entry['description_fr'];
+        $haystack = $entry['title_fr'].' '.$entry['key'].' '.$entry['description_fr'].' '.(isset($entry['purpose_en']) ? $entry['purpose_en'] : '');
         if (mb_stripos($haystack, $query) === false) {
             continue;
         }
-    } elseif ($tab === 'historique' ? $compatible : (!$compatible || !isset($tabs[$entry['group']]) || $tabs[$entry['group']] !== $tab)) {
+    } elseif ($tab === 'historique' ? ($compatible || $entry['source'] === 'doliconstdoc') : (!$compatible || !isset($tabs[$entry['group']]) || $tabs[$entry['group']] !== $tab)) {
         continue;
     }
     $filtered[] = $entry;
 }
 
-usort($filtered, function ($left, $right) {
+usort($filtered, function ($left, $right) use ($query) {
+    if ($query !== '') {
+        $rank = function ($entry) use ($query) {
+            if (strcasecmp($entry['key'], $query) === 0) return 0;
+            if (stripos($entry['key'], $query) === 0) return 1;
+            if (stripos($entry['key'], $query) !== false) return 2;
+            return 3;
+        };
+        $difference = $rank($left) - $rank($right);
+        if ($difference !== 0) return $difference;
+    }
     return strcoll($left['title_fr'], $right['title_fr']);
 });
 $perPage = 20;
@@ -140,7 +158,7 @@ llxHeader('', 'Options avancées Dolibarr');
 print '<link rel="stylesheet" href="'.dol_buildpath('/dolibarrfulloption/css/dolibarrfulloption.css', 1).'">';
 print '<div id="dolibarrfulloption-admin">';
 print load_fiche_titre('Options avancées', '', 'fa-sliders');
-print '<div class="opacitymedium dolibarrfulloption-version">Dolibarr '.dol_escape_htmltag(DOL_VERSION).' · Catalogue vérifié sur V22, V23 et V24. Les constantes absentes de cette version figurent dans « Anciennes options ».</div>';
+print '<div class="opacitymedium dolibarrfulloption-version">Dolibarr '.dol_escape_htmltag(DOL_VERSION).' · Fiches françaises vérifiées sur V22, V23 et V24 ; inventaire du code recoupé avec votre version.</div>';
 if ($major !== 22 && $major !== 23 && $major !== 24) {
     print '<div class="warning">Cette version n’a pas été vérifiée. Le catalogue reste consultable, sans modification possible.</div>';
 }
@@ -160,6 +178,9 @@ if ($query !== '') {
     print ' <a href="'.$baseUrl.'?tab='.urlencode($tab).'">Effacer</a>';
 }
 print '</form>';
+if ($tab === 'inventaire' && $query === '') {
+    print '<div class="opacitymedium dolibarrfulloption-context">Inventaire technique issu de DoliConstDoc : clés repérées dans le code de cette version. Les résumés d’origine sont en anglais et n’ont pas encore été validés comme réglages éditables.</div>';
+}
 if ($tab === 'historique' && $query === '') {
     print '<div class="opacitymedium dolibarrfulloption-context">Constantes documentées mais absentes du code vérifié de Dolibarr '.$major.'.</div>';
 }

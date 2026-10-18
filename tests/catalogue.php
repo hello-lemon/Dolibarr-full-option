@@ -4,6 +4,7 @@ define('DOL_VERSION', '24.0.1');
 require __DIR__.'/../class/dolibarrfulloptioncatalog.class.php';
 require __DIR__.'/../class/dolibarrfulloptionsettings.class.php';
 require __DIR__.'/../class/dolibarrfulloptionview.class.php';
+require __DIR__.'/../class/dolibarrfulloptiondiscovery.class.php';
 
 function newToken()
 {
@@ -19,6 +20,10 @@ function check($condition, $message)
 }
 
 $entries = DolibarrFullOptionCatalog::all();
+$discovery = DolibarrFullOptionDiscovery::all();
+check(count($discovery) === 3219, 'L’inventaire DoliConstDoc doit être complet.');
+check(in_array(22, DolibarrFullOptionDiscovery::toCatalogEntry($discovery['AADE_WEBSERVICE_KEY'])['versions'], true), 'L’inventaire doit repérer les clés présentes en V22.');
+check(!isset($entries['AADE_WEBSERVICE_KEY']), 'Les clés de l’inventaire ne doivent pas être confondues avec les fiches vérifiées.');
 check(count($entries) >= 532, 'Toutes les constantes du wiki doivent figurer dans le catalogue.');
 check(DolibarrFullOptionCatalog::majorVersion() === 24, 'La version majeure doit être détectée.');
 check(DolibarrFullOptionCatalog::find('MAIN_PAGESIZE_CHOICES')['type'] === 'choices', 'Le sélecteur de tailles doit être spécialisé.');

@@ -11458,52 +11458,6 @@
     }
   },
   {
-    "key": "FCKEDITOR_ENABLE_NOTE_PRIVATE",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "comm/propal/card.php",
-        "commande/card.php",
-        "compta/deplacement/card.php"
-      ],
-      "24": [
-        "comm/propal/card.php",
-        "commande/card.php",
-        "compta/facture/card-rec.php"
-      ]
-    },
-    "source_files": {
-      "23": 19,
-      "24": 18
-    }
-  },
-  {
-    "key": "FCKEDITOR_ENABLE_NOTE_PUBLIC",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "comm/propal/card.php",
-        "commande/card.php",
-        "compta/deplacement/card.php"
-      ],
-      "24": [
-        "comm/propal/card.php",
-        "commande/card.php",
-        "compta/facture/card-rec.php"
-      ]
-    },
-    "source_files": {
-      "23": 18,
-      "24": 17
-    }
-  },
-  {
     "key": "FCKEDITOR_ENABLE_PDF",
     "versions": [
       23,
@@ -18138,29 +18092,6 @@
     }
   },
   {
-    "key": "MAIN_BUTTON_HIDE_UNAUTHORIZED",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "core/class/html.formfile.class.php",
-        "core/lib/functions.lib.php",
-        "fourn/facture/card.php"
-      ],
-      "24": [
-        "core/class/html.formfile.class.php",
-        "core/lib/functions.lib.php",
-        "fourn/facture/card.php"
-      ]
-    },
-    "source_files": {
-      "23": 6,
-      "24": 6
-    }
-  },
-  {
     "key": "MAIN_BUTTON_POSITION_FIRST_OR_LEFT",
     "versions": [
       23,
@@ -24698,52 +24629,6 @@
     }
   },
   {
-    "key": "MAIN_LIST_HIDE_PRIVATE_NOTES",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "comm/propal/list.php",
-        "commande/list.php",
-        "commande/list_det.php"
-      ],
-      "24": [
-        "comm/propal/list.php",
-        "commande/list.php",
-        "commande/list_det.php"
-      ]
-    },
-    "source_files": {
-      "23": 12,
-      "24": 12
-    }
-  },
-  {
-    "key": "MAIN_LIST_HIDE_PUBLIC_NOTES",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "comm/propal/list.php",
-        "commande/list.php",
-        "commande/list_det.php"
-      ],
-      "24": [
-        "comm/propal/list.php",
-        "commande/list.php",
-        "commande/list_det.php"
-      ]
-    },
-    "source_files": {
-      "23": 12,
-      "24": 12
-    }
-  },
-  {
     "key": "MAIN_LIST_ORDER_LINK_DONT_USE_STATUS",
     "versions": [
       23,
@@ -24760,29 +24645,6 @@
     "source_files": {
       "23": 1,
       "24": 1
-    }
-  },
-  {
-    "key": "MAIN_LIST_SHOW_REF_EXT",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "adherents/class/adherent.class.php",
-        "comm/propal/class/propal.class.php",
-        "commande/class/commande.class.php"
-      ],
-      "24": [
-        "adherents/class/adherent.class.php",
-        "comm/propal/class/propal.class.php",
-        "commande/class/commande.class.php"
-      ]
-    },
-    "source_files": {
-      "23": 9,
-      "24": 9
     }
   },
   {
@@ -26659,29 +26521,6 @@
     "source_files": {
       "23": 1,
       "24": 1
-    }
-  },
-  {
-    "key": "MAIN_MENU_HIDE_UNAUTHORIZED",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "core/lib/functions.lib.php",
-        "core/menus/standard/auguria.lib.php",
-        "core/menus/standard/auguria_menu.php"
-      ],
-      "24": [
-        "core/lib/functions.lib.php",
-        "core/menus/standard/auguria.lib.php",
-        "core/menus/standard/auguria_menu.php"
-      ]
-    },
-    "source_files": {
-      "23": 6,
-      "24": 6
     }
   },
   {
@@ -30559,29 +30398,6 @@
     "source_files": {
       "23": 1,
       "24": 1
-    }
-  },
-  {
-    "key": "MAIN_SHOW_INVALID_EMAIL_IN_LIST",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "adherents/list.php",
-        "contact/list.php",
-        "contrat/list.php"
-      ],
-      "24": [
-        "adherents/list.php",
-        "contact/list.php",
-        "contrat/list.php"
-      ]
-    },
-    "source_files": {
-      "23": 6,
-      "24": 6
     }
   },
   {
@@ -37411,29 +37227,6 @@
     }
   },
   {
-    "key": "PDF_SHOW_EMAIL_AFTER_USER_CONTACT",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "core/modules/commande/doc/pdf_einstein.modules.php",
-        "core/modules/commande/doc/pdf_eratosthene.modules.php",
-        "core/modules/contract/doc/pdf_strato.modules.php"
-      ],
-      "24": [
-        "core/modules/commande/doc/pdf_einstein.modules.php",
-        "core/modules/commande/doc/pdf_eratosthene.modules.php",
-        "core/modules/contract/doc/pdf_strato.modules.php"
-      ]
-    },
-    "source_files": {
-      "23": 15,
-      "24": 15
-    }
-  },
-  {
     "key": "PDF_SHOW_LINK_TO_ONLINE_PAYMENT",
     "versions": [
       23,
@@ -37454,29 +37247,6 @@
     "source_files": {
       "23": 4,
       "24": 3
-    }
-  },
-  {
-    "key": "PDF_SHOW_PHONE_AFTER_USER_CONTACT",
-    "versions": [
-      23,
-      24
-    ],
-    "references": {
-      "23": [
-        "core/modules/commande/doc/pdf_einstein.modules.php",
-        "core/modules/commande/doc/pdf_eratosthene.modules.php",
-        "core/modules/contract/doc/pdf_strato.modules.php"
-      ],
-      "24": [
-        "core/modules/commande/doc/pdf_einstein.modules.php",
-        "core/modules/commande/doc/pdf_eratosthene.modules.php",
-        "core/modules/contract/doc/pdf_strato.modules.php"
-      ]
-    },
-    "source_files": {
-      "23": 15,
-      "24": 15
     }
   },
   {
