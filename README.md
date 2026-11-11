@@ -1,13 +1,13 @@
 # Dolibarr Full Option
 
-Module communautaire pour Dolibarr 22, 23 et 24. Il rassemble les options avancées dans une page d’administration en français : onglets et tableau natifs, recherche, explication de chaque constante et commande adaptée à sa valeur (interrupteur, liste, nombre, URL ou champ texte). La version de Dolibarr est détectée automatiquement. Les options absentes du code de cette version restent consultables sous **Anciennes options**, sans commande d’écriture. L’onglet **Inventaire du code** permet de rechercher les autres clés repérées dans les sources de la version utilisée. Chaque clé y porte un résumé traduit en français, avec la version originale anglaise repliable dessous ; ces clés ouvrent la page native Divers pour toute modification.
+Module communautaire pour Dolibarr 22, 23 et 24, avec **579 fiches détaillées en français** et un **inventaire de 3 291 clés**. Il rassemble les options avancées dans une page d’administration en français : onglets et tableau natifs, recherche, explication de chaque constante et commande adaptée à sa valeur (interrupteur, liste, nombre, URL ou champ texte). La version de Dolibarr est détectée automatiquement. Les options absentes du code de cette version restent consultables sous **Anciennes options**, sans commande d’écriture. L’onglet **Inventaire du code** permet de rechercher les autres clés repérées dans les sources de la version utilisée. Chaque clé y porte un résumé traduit en français, avec la version originale anglaise repliable dessous ; ces clés ouvrent la page native Divers pour toute modification.
 
 ## Contenu du catalogue
 
-- 530 fiches issues de la page [Setup Other du wiki Dolibarr](https://wiki.dolibarr.org/index.php/Setup_Other).
-- 49 fiches issues du code officiel, dont des corrections de fiches initialement extraites du wiki.
-- 579 fiches au total ; leur présence par version a été comparée aux sources officielles 22.0.4, 23.0.4 et 24.0.1.
-- Un [inventaire complémentaire](docs/audit-code.md) recense 2 612 autres constantes repérées dans le code. Le [répertoire technique](docs/inventaire-doliconstdoc.md) apporte les 3 219 clés d’une base GPL indépendante et 72 clés supplémentaires extraites du code, recoupées avec les sources 22, 23 et 24. Ces données sont des pistes d’analyse, pas des réglages automatiquement modifiables.
+- **579 fiches détaillées** : 530 issues de la page [Setup Other du wiki Dolibarr](https://wiki.dolibarr.org/index.php/Setup_Other) et 49 issues du code officiel, dont des corrections de fiches initialement extraites du wiki. Leur présence par version a été comparée aux sources officielles 22.0.4, 23.0.4 et 24.0.1.
+- **3 291 clés dans l’inventaire du code** : 3 219 issues d’une base GPL indépendante et 72 clés supplémentaires extraites du code, recoupées avec les sources 22, 23 et 24. Le [répertoire technique](docs/inventaire-doliconstdoc.md) détaille leur provenance. Cet inventaire comprend aussi des clés déjà présentes dans les fiches détaillées ; ces données sont des pistes d’analyse, pas des réglages automatiquement modifiables.
+
+Un [audit complémentaire](docs/audit-code.md) recense 2 612 autres constantes repérées dans le code.
 
 Une constante présente dans le code peut dépendre d’un autre module ou d’un contexte particulier. Les fiches dont le format ou l’effet est incertain restent en lecture seule. Les versions autres que 22, 23 et 24 sont consultables sans écriture. Avant toute modification, lire la description et vérifier le comportement sur une instance de test.
 
